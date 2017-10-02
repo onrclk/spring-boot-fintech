@@ -1,0 +1,502 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Transaction Search</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="home">Homepage</a>
+            </li>
+            <li class="active">
+                <strong>Transaction</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-sm-8">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Transaction Search</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <form role="form" novalidate name="reportForm"
+                                      ng-submit="searchTransaction()" class="form-horizontal">
+
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Transaction ID</label>
+                                            <div class="col-lg-10">
+                                                <input type="text" name="transaction"
+                                                       ng-model="transactionId"
+                                                       placeholder=""
+                                                       class="form-control" required>
+
+                                                <span ng-messages="reportForm.transaction.$error"
+                                                      class="fintech-ngmessage">
+                                                <div ng-message="required">Transaction id girilmelidir</div>
+                                            </span>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <div class="col-lg-12">
+
+                                                <div class="pull-left">
+                                                    <button type="submit" ng-disabled="!transactionId"
+                                                            class="btn btn-info">Ara
+                                                    </button>
+                                                </div>
+                                                <div class="clear"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12" ng-if="transaction">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <span class="label label-info pull-right">ID : {{transaction.customerInfo.id}}</span>
+                                    <h5>Customer</h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-md-6 b-r">
+                                            <div class="col-xs-6">
+                                                <div>
+                                                    <div class="font-bold">Name</div>
+                                                    <small class="stats-label">
+                                                        {{transaction.customerInfo.shippingFirstName}}
+                                                        {{transaction.customerInfo.shippingLastName}}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Email</div>
+                                                    <small class="stats-label">{{transaction.customerInfo.email}}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Number</div>
+                                                    <small class="stats-label">{{transaction.customerInfo.number}}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Created Date</div>
+                                                    <small class="stats-label">{{transaction.customerInfo.created_at | date:'yyyy-MM-dd HH:mm:ss'}}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Updated Date</div>
+                                                    <small class="stats-label">{{transaction.customerInfo.updated_at | date:'yyyy-MM-dd HH:mm:ss'}}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div>
+                                                    <div class="font-bold">Gender</div>
+                                                    <small class="stats-label" ng-if="transaction.customerInfo.gender">
+                                                        {{transaction.customerInfo.gender}}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.customerInfo.gender">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Birtday</div>
+                                                    <small class="stats-label">
+                                                        {{transaction.customerInfo.birthday | date}}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Expiry Date</div>
+                                                    <small class="stats-label">
+                                                        {{transaction.customerInfo.expiryMonth}} /
+                                                        {{transaction.customerInfo.expiryYear}}
+                                                    </small>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="font-bold">Address</div>
+
+                                            <address class="m-t-md">
+                                                <strong>{{transaction.customerInfo.billingCompany}}</strong><br>
+                                                {{transaction.customerInfo.billingAddress1}}<br>
+                                                <span ng-if="transaction.customerInfo.billingAddress2.length > 0">
+                                                    {{transaction.customerInfo.billingAddress2}}</span><br>
+                                                {{transaction.customerInfo.billingCity}} /
+                                                {{transaction.customerInfo.billingCity}} -
+                                                {{transaction.customerInfo.billingPostcode}}<br>
+                                                <abbr title="Phone">P:</abbr> {{transaction.customerInfo.billingPhone}}
+                                            </address>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>Transaction Merchant</h5>
+                                    <div class="ibox-tools">
+                                        <span class="label label-info pull-left">ID : {{transaction.transaction.merchant.transactionId}}</span>
+                                        <span class="label label-success pull-right"
+                                              ng-if="transaction.transaction.merchant.status == 'APPROVED'">
+                                            {{transaction.transaction.merchant.status}}
+                                        </span>
+                                        <span class="label label-danger pull-right"
+                                              ng-if="transaction.transaction.merchant.status != 'APPROVED'">
+                                            {{transaction.transaction.merchant.status}}
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-md-6 b-r">
+                                            <div class="col-xs-6">
+                                                <div>
+                                                    <div class="font-bold">ID</div>
+                                                    <small class="stats-label">
+                                                        {{transaction.transaction.merchant.id}}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">FX Transaction Id</div>
+                                                    <small class="stats-label">
+                                                        {{transaction.transaction.merchant.fxTransactionId}}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Chain Id</div>
+                                                    <small class="stats-label">
+                                                        {{transaction.transaction.merchant.chainId}}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Operation</div>
+                                                    <small class="stats-label">{{transaction.transaction.merchant.operation}}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Message</div>
+                                                    <small class="stats-label">{{transaction.transaction.merchant.message}}
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div>
+                                                    <div class="font-bold">Merchant ID</div>
+                                                    <small class="stats-label">
+                                                        {{transaction.transaction.merchant.merchantId}}
+                                                    </small>
+
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Reference No</div>
+                                                    <small class="stats-label">
+                                                        {{transaction.transaction.merchant.referenceNo}}
+                                                    </small>
+
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Code</div>
+                                                    <small class="stats-label">
+                                                        {{transaction.transaction.merchant.code}}
+                                                    </small>
+
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Created Date</div>
+                                                    <small class="stats-label">{{transaction.transaction.merchant.created_at | date:'yyyy-MM-dd HH:mm:ss'}}
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Agent Info ID</div>
+                                                    <small class="stats-label">
+                                                        {{transaction.transaction.merchant.agentInfoId}}
+                                                    </small>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="col-xs-6">
+                                                <div>
+                                                    <div class="font-bold">Name</div>
+                                                    <small class="stats-label" ng-if="transaction.transaction.merchant.name">
+                                                        {{transaction.transaction.merchant.name}}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.transaction.merchant.name">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Original Amount</div>
+                                                    <small class="stats-label" ng-if="transaction.transaction.merchant.originalAmount">
+                                                        {{transaction.transaction.merchant.originalAmount}}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.transaction.merchant.originalAmount">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div>
+                                                    <div class="font-bold">Channel</div>
+                                                    <small class="stats-label" ng-if="transaction.transaction.merchant.channel">
+                                                        {{transaction.transaction.merchant.channel}}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.transaction.merchant.channel">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Original Currency</div>
+                                                    <small class="stats-label" ng-if="transaction.transaction.merchant.originalCurrency">
+                                                        {{transaction.transaction.merchant.originalCurrency}}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.transaction.merchant.originalCurrency">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <div class="pull-left">
+                                        <h5>FX Merchant</h5>
+                                    </div>
+                                    <div class="pull-left">
+                                        <span class="label label-info pull-left" ng-if="transaction.fx.merchant.id">ID : {{transaction.fx.merchant.id}}</span>
+                                        <span class="label label-info pull-left" ng-if="!transaction.fx.merchant.id">ID : N/A</span>
+                                    </div>
+                                    <div class="pull-right">
+
+                                         <span class="label label-success"
+                                               ng-if="transaction.fx.merchant.status">
+                                            Status :  {{transaction.fx.merchant.status}}
+                                        </span>
+                                        <span class="label label-danger"
+                                              ng-if="!transaction.fx.merchant.status">
+                                            Status :  N/A
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-md-6 b-r">
+                                            <div class="col-xs-6">
+                                                <div>
+                                                    <div class="font-bold">Name</div>
+                                                    <small class="stats-label" ng-if="transaction.fx.merchant.name">
+                                                        {{transaction.fx.merchant.name}}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.fx.merchant.name">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Acquirer Transaction Id</div>
+                                                    <small class="stats-label" ng-if="transaction.fx.merchant.acquirerTransactionId">
+                                                        {{transaction.fx.merchant.acquirerTransactionId}}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.fx.merchant.acquirerTransactionId">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div>
+                                                    <div class="font-bold">Created Date</div>
+                                                    <small class="stats-label" ng-if="transaction.fx.merchant.created_at">
+                                                        {{transaction.fx.merchant.created_at }}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.fx.merchant.created_at">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Updated Date</div>
+                                                    <small class="stats-label" ng-if="transaction.fx.merchant.updated_at">
+                                                        {{transaction.fx.merchant.updated_at}}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.fx.merchant.updated_at">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="col-xs-6">
+                                                <div>
+                                                    <div class="font-bold">Original Amount</div>
+                                                    <small class="stats-label" ng-if="transaction.fx.merchant.originalAmount">
+                                                        {{transaction.fx.merchant.originalAmount}}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.fx.merchant.originalAmount">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Acquirer Transaction Id</div>
+                                                    <small class="stats-label" ng-if="transaction.fx.merchant.acquirerTransactionId">
+                                                        {{transaction.fx.merchant.acquirerTransactionId}}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.fx.merchant.acquirerTransactionId">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div>
+                                                    <div class="font-bold">Original Currency</div>
+                                                    <small class="stats-label" ng-if="transaction.fx.merchant.originalCurrency">
+                                                        {{transaction.fx.merchant.originalCurrency}}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.fx.merchant.originalCurrency">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                                <div>
+                                                    <div class="font-bold">Acquirer Transaction Id</div>
+                                                    <small class="stats-label" ng-if="transaction.fx.merchant.acquirerTransactionId">
+                                                        {{transaction.fx.merchant.acquirerTransactionId}}
+                                                    </small>
+                                                    <small class="stats-label" ng-if="!transaction.fx.merchant.acquirerTransactionId">
+                                                        N/A
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <div class="pull-left">
+                                        <h5>Merchant</h5>
+                                    </div>
+                                    <div class="pull-left">
+                                        <span class="label label-info pull-left" ng-if="transaction.merchant.id">ID : {{transaction.merchant.id}}</span>
+                                        <span class="label label-info pull-left" ng-if="!transaction.merchant.id">ID : N/A</span>
+                                    </div>
+                                    <div class="pull-right">
+
+                                         <span class="label label-success"
+                                               ng-if="transaction.merchant.status">
+                                            Status :  {{transaction.merchant.status}}
+                                        </span>
+                                        <span class="label label-danger"
+                                              ng-if="!transaction.merchant.status">
+                                            Status :  N/A
+                                        </span>
+                                    </div>
+                                    <div class="clearfix"></div>
+
+                                </div>
+                                <div class="ibox-content">
+                                    <div class="row">
+
+                                        <div class="col-md-6 b-r">
+
+                                            <div>
+                                                <div class="font-bold">Name</div>
+                                                <small class="stats-label" ng-if="transaction.merchant.name">
+                                                    {{transaction.merchant.name}}
+                                                </small>
+                                                <small class="stats-label" ng-if="!transaction.merchant.name">
+                                                    N/A
+                                                </small>
+                                            </div>
+                                            <div>
+                                                <div class="font-bold">Created Date</div>
+                                                <small class="stats-label" ng-if="transaction.merchant.created_at">
+                                                    {{transaction.merchant.created_at}}
+                                                </small>
+                                                <small class="stats-label" ng-if="!transaction.merchant.created_at">
+                                                    N/A
+                                                </small>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-6">
+
+                                            <div>
+                                                <div class="font-bold">Operation</div>
+                                                <small class="stats-label" ng-if="transaction.merchant.operation">
+                                                    {{transaction.merchant.operation}}
+                                                </small>
+                                                <small class="stats-label" ng-if="!transaction.merchant.operation">
+                                                    N/A
+                                                </small>
+                                            </div>
+                                            <div>
+                                                <div class="font-bold">Updated Date</div>
+                                                <small class="stats-label" ng-if="transaction.merchant.updated_at">
+                                                    {{transaction.merchant.updated_at}}
+                                                </small>
+                                                <small class="stats-label" ng-if="!transaction.merchant.updated_at">
+                                                    N/A
+                                                </small>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

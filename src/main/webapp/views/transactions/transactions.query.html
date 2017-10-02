@@ -1,0 +1,214 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-sm-4">
+        <h2>Transactions List</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a ui-sref="home">Homepage</a>
+            </li>
+            <li class="active">
+                <strong>Transactions List</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-sm-8">
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Transactions List</h5>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <form role="form" novalidate name="reportForm" class="form-horizontal"
+                                      ng-submit="queryTransactions()">
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Dates</label>
+
+                                            <div class="col-lg-10">
+                                                <input date-range-picker name="reportDaterange" options="options"
+                                                       class="form-control date-picker" type="text"
+                                                       ng-model="datePicker.date" required/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Status</label>
+
+                                            <div class="col-lg-10">
+                                                <select class="form-control"
+                                                        ng-options="status for status in statusTypes"
+                                                        ng-model="postData.status">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Operation</label>
+
+                                            <div class="col-lg-10">
+                                                <select class="form-control"
+                                                        ng-options="operation for operation in operationTypes"
+                                                        ng-model="postData.operation">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Payment Method</label>
+
+                                            <div class="col-lg-10">
+                                                <select class="form-control"
+                                                        ng-options="paymentMethod for paymentMethod in paymentMethodTypes"
+                                                        ng-model="postData.paymentMethod">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Error Code</label>
+
+                                            <div class="col-lg-10">
+                                                <select class="form-control"
+                                                        ng-options="errorType for errorType in errorTypes"
+                                                        ng-model="postData.errorCode">
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Merchant ID</label>
+                                            <div class="col-lg-10">
+                                                <input type="number" name="merchantNo"
+                                                       ng-model="postData.merchantId"
+                                                       placeholder="Merchant no giriniz..."
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Acquirer</label>
+
+                                            <div class="col-lg-10">
+                                                <input type="number" name="acquirerNo"
+                                                       ng-model="postData.acquirerId"
+                                                       placeholder="Acquirer no giriniz..."
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Filter Field</label>
+
+                                            <div class="col-lg-10">
+                                                <select class="form-control"
+                                                        ng-options="filterType for filterType in filterTypes"
+                                                        ng-model="postData.filterField">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Filter Term</label>
+
+                                            <div class="col-lg-10">
+                                                <input type="text" name="filterValue"
+                                                       ng-model="postData.filterValue"
+                                                       placeholder="filter term..."
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-2 control-label">Page</label>
+
+                                            <div class="col-lg-10">
+                                                <input type="number" name="pageNo"
+                                                       ng-model="postData.page"
+                                                       placeholder="Page no..."
+                                                       class="form-control">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="col-lg-12">
+                                                <div class="pull-right">
+                                                    <button type="submit" class="btn btn-info">Sorgula</button>
+                                                </div>
+                                                <div class="clear"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>Transactions</h5>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+
+                                <table datatable="ng" dt-options="dtOptions"
+                                       class="table table-striped table-bordered table-hover dataTables-example">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <td>Operation</td>
+                                        <td>Status</td>
+                                        <th>Merchant</th>
+                                        <th>Acquirer</th>
+                                        <th>Customer</th>
+                                        <th>FX</th>
+                                        <th>Refundable</th>
+                                        <th>Transaction</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="transaction in transactions">
+                                        <td>{{transaction.transaction.merchant.transactionId}}</td>
+                                        <td>{{transaction.transaction.merchant.operation}}</td>
+                                        <td ng-if="transaction.transaction.merchant.status =='APPROVED'"> <span class="label label-info">{{transaction.transaction.merchant.status}}</span></td>
+                                        <td ng-if="transaction.transaction.merchant.status !='APPROVED'"> <span class="label label-danger">{{transaction.transaction.merchant.status}}</span></td>
+                                        <td>{{transaction.fx.merchant.originalAmount}} /
+                                            {{transaction.fx.merchant.originalCurrency }}//
+                                        </td>
+                                        <td>
+                                            {{ transaction.acquirer.code}} /
+                                            {{transaction.acquirer.name}} /
+                                            {{transaction.acquirer.type }}
+                                        </td>
+                                        <td>
+                                            {{transaction.customerInfo.billingFirstName}} /
+                                            {{transaction.customerInfo.billingLastName}} /
+                                            {{transaction.customerInfo.email}}
+                                        </td>
+
+                                        <td>{{transaction.merchant.id}}/{{transaction.merchant.name}} </td>
+                                        <td>{{transaction.refundable == true ? 'YES' : 'NO'}}</td>
+                                        <td>{{transaction.transaction.merchant.name}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

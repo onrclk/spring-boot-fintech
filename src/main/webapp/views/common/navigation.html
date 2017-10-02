@@ -1,0 +1,47 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul side-navigation class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+
+                <div class="profile-element" uib-dropdown>
+                    <img alt="image" class="img-circle" src="img/profile_small.jpg"/>
+                    <a uib-dropdown-toggle href>
+                            <span class="clear">
+                                <span class="block m-t-xs">
+                                    <strong class="font-bold">{{userName}}</strong>
+                                </span>
+                            </span>
+                    </a>
+                </div>
+                <div class="logo-element">
+                    IN+
+                </div>
+            </li>
+            <li ng-class="{active: $state.includes('site')}">
+                <a href="#"><i class="fa fa-th-large"></i> <span class="nav-label">Transactions</span>
+                    <span class="fa arrow"></span></a>
+
+
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('transactions')}">
+                    <li ui-sref-active="active"><a ui-sref="transactions.search">Transaction Search</a></li>
+                </ul>
+
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('transactions')}">
+                    <li ui-sref-active="active"><a ui-sref="transactions.query">Transactions List</a></li>
+                </ul>
+
+                <ul class="nav nav-second-level collapse" ng-class="{in: $state.includes('transactions')}">
+                    <li ui-sref-active="active"><a ui-sref="transactions.report">Transactions Report</a></li>
+
+                </ul>
+
+
+
+
+
+
+            </li>
+        </ul>
+
+    </div>
+</nav>
