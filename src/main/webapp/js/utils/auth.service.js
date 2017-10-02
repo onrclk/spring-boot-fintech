@@ -33,7 +33,8 @@ angular.module('finTechApp')
                     $state.go('login');
                 },
                 authorize: function (force) {
-                    Principal.identity(force).then(function () {
+                    Principal.identity(force)
+                        .then(function () {
 
                         var isAuthenticated = Principal.isAuthenticated();
 
@@ -45,6 +46,8 @@ angular.module('finTechApp')
 
                             $state.go('login');
                         }
+                    }).catch(function () {
+                        $state.go('login');
                     })
                 }
             }

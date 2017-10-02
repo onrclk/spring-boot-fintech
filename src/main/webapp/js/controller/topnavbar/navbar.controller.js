@@ -7,6 +7,7 @@ angular.module(appName)
 
         $scope.logout = function () {
             AuthProvider.logout();
+            Principal.identity(true);
             $state.go('login');
         };
     });

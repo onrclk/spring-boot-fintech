@@ -26,7 +26,7 @@ angular.module(appName)
                         })
                 },
                 logout: function () {
-                    localStorageService.clearAll();
+                    localStorageService.remove('token');
                 },
                 getToken: function () {
                     return localStorageService.get('token');
