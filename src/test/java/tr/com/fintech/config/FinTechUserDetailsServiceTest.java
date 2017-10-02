@@ -81,11 +81,10 @@ public class FinTechUserDetailsServiceTest {
 
 
 
-    String result ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJtZXJjaGFudFVzZXJJZCI6NTMsInJvbGUiOiJ1c2VyIiwibWVyY2hhbnRJZCI6Mywic3ViTWVyY2hhbnRJZHMiOlszLDc0LDkzLDExOTEsMTExLDEzNywxMzgsMTQyLDE0NSwxNDYsMTUzLDMzNCwxNzUsMTg0LDIyMCwyMjEsMjIyLDIyMywyOTQsMzIyLDMyMywzMjcsMzI5LDMzMCwzNDksMzkwLDM5MSw0NTUsNDU2LDQ3OSw0ODgsNTYzLDExNDksNTcwLDExMzgsMTE1NiwxMTU3LDExNTgsMTE3OV0sInRpbWVzdGFtcCI6MTUwNjYzMTE1OH0.T_RKEmH_arLPR5b4X0K8Q7Wikcm5UXwjEtMoCFKOrJM";
     @Test
     public void test_login_convert_jwt() throws IOException {
 
-       /* if (LOGGER.isDebugEnabled()) {
+        if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("Login Request is being sent... : {} - {} - {}", loginURL, email, password);
         }
 
@@ -104,10 +103,9 @@ public class FinTechUserDetailsServiceTest {
         assertTrue("Response must be 200", response.getStatusCode() == HttpStatus.OK);
 
         MerchantJWTResponse result = response.getBody();
-        assertTrue("must be approved", result.getStatus() == StatusType.APPROVED);*/
+        assertTrue("must be approved", result.getStatus() == StatusType.APPROVED);
 
-        JwtUserToken jtoken = jwtSecurityUtils.convertJWTTo(result);
-        assertNotNull("not null", jtoken);
+        assertNotNull("Token not null", result.getToken());
     }
 
 }

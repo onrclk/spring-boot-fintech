@@ -14,6 +14,8 @@ angular.module('finTechApp')
                             // After the login the language will be changed to
                             // the language selected by the user during his registration
                             deferred.resolve(data);
+                        }).catch(function (err) {
+                            deferred.reject(err);
                         });
                         return cb();
                     }).catch(function (err) {

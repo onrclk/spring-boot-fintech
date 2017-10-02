@@ -13,6 +13,8 @@
                        required="">
             </div>
             <button type="button" ng-click="loginController.login()" class="btn btn-primary block full-width m-b">Login</button>
+
+            <span class="fintech-ngmessage" ng-if="error">{{message}}</span>
         </form>
         <p class="m-t">
             <small>FinTech &copy; 2017</small>

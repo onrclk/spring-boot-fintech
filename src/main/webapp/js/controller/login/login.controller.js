@@ -10,14 +10,17 @@ angular.module(appName)
 
                 AuthService.login({
                     username: self.username,
-                    password: self.password,
+                    password: self.password
                 }).then(function () {
 
                     console.log('login success');
                     localStorageService.set('username', self.username);
+                    $scope.error = true;
                     $state.go('home');
-                }).catch(function () {
-                    console.log('LOGIN HATASI !!!');
+                }).catch(function (err) {
+                    console.log('LOGIN HATASI');
+                    $scope.error = true;
+                    $scope.message = 'Kullanıcı ismi ya da şifreniz hatalı';
                 })
             }
         }]);
